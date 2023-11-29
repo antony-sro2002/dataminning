@@ -1,0 +1,309 @@
+{% extends "layout/layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="card c1 bg-dark justify-content ">
+        <div class="mb-3 text-center">
+            <h1 class="text-light">MENU</h1>
+        </div>
+        <div class="d-grid gap-2 col-10 mx-auto btns">
+            <a href="#RE" type="button" class="btn btn-outline-light">EDA</a>
+            <a href="#RD" type="button" class="btn btn-outline-light">Model results</a>
+            <a href="#Rr" type="button" class="btn btn-outline-light">Predict subscription</a>
+        </div>
+    </div>
+
+    <div class="card c2 bg-dark ">
+        <section class="section1" id="RE">
+            <div class="tittle">
+                <h1 class="text-light">Exploratory Data Analysis</h1>
+            </div>
+            <div class="plot">
+                <div class="subtittle">
+                    <h5 class="text-ligh">Correlation Matrix</h5>
+                </div>
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='assets/images/EDA/correlation_heatmap.png')}}"
+                        class="img-fluid" style="max-width: 95%" alt="">
+                </div>
+            </div>
+            <div class="plot">
+                <div class="subtittle">
+                    <h5 class="text-ligh">Pie chart Customer: Subscribed x Not subscribed</h5>
+                </div>
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='assets/images/EDA/circular.png')}}" class="img-fluid"
+                        style="max-width: 95%" alt="">
+                </div>
+            </div>
+            <div class="plot">
+                <div class="subtittle">
+                    <h5 class="text-ligh">Barres Education</h5>
+                </div>
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='assets/images/EDA/barras1.png')}}" class="img-fluid"
+                        style="max-width: 95%" alt="">
+                </div>
+            </div>
+            <div class="plot">
+                <div class="subtittle">
+                    <h5 class="text-ligh">Barres Conctac</h5>
+                </div>
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='assets/images/EDA/barras2.png')}}" class="img-fluid"
+                        style="max-width: 95%" alt="">
+                </div>
+            </div>
+
+        </section>
+
+        <section class="section1" id="RD">
+            <div class="tittle">
+                <h1 class="text-light">Results of the models to be evaluated</h1>
+            </div>
+            <div class="table">
+                <div class="subtittle">
+                    <h5 class="text-ligh">Model comparison table</h5>
+                </div>
+                <div class="table-custom">
+                    <table class="table-bordered text-light text-center" style="border-color: white;">
+                        <thead>
+                            <tr>
+                                {% for header in headers %}
+                                <th>{{ header }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in data %}
+                            <tr>
+                                {% for cell in row %}
+                                <td>{{ cell }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="section1" id="Rr">
+            <div class="tittle">
+                <h1 class="text-light">Predict Customer Subscription</h1>
+            </div>
+            <form class="formulario-content" action="/cliente" method="POST">
+                <div class="form">
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Age</label>
+                    <input type="text" name="age" class="form-control input-column input-custom"
+                        id="formGroupExampleInput" placeholder="Digite el valor del campo">
+
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Job:</label>
+                    <select class="form-control input-column" name="job" id="job"> 
+                        <option value="admin">Admin</option>
+                        <option value="unemployed">Unemployed</option>
+                        <option value="management">Management</option>
+                        <option value="housemaid">Housemaid</option>
+                        <option value="entrepreneur">Entrepreneur</option>
+                        <option value="student">Student</option>
+                        <option value="blue-collar">Blue-collar</option>
+                        <option value="self-employed">Self-employed</option>
+                        <option value="retired">Retired</option>
+                        <option value="technician">Technician</option>
+                        <option value="services">Services</option>
+                        <option value="unknown">Unknown</option>
+                    </select>
+                </div>
+                <div class="form">
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Marital</label>
+                    <select class="form-control input-column" name="marital" id="marital">
+                        <option value="married">Married</option>
+                        <option value="divorced">Divorced</option>
+                        <option value="single">Single</option>
+                        <option value="unknown">unknown</option>
+                    </select>
+
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Education:</label>
+                    <select class="form-control input-column" name="education" id="education">
+                        <option value="primary">Primary</option>
+                        <option value="secondary">Secondary</option>
+                        <option value="tertiary">Tertiary</option>
+                        <option value="Unknown">Unknown</option>
+                    </select>
+                </div>
+
+                <div class="form">
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Has credit in
+                        default?</label>
+                    <select class="form-control input-column" name="default" id="default">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Has housing
+                        loan?</label>
+                    <select class="form-control input-column" name="housing" id="housing">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <div class="form">
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Has personal
+                        loan?</label>
+                    <select class="form-control input-column" name="loan" id="loan">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Contact</label>
+                    <select class="form-control input-column" name="contact" id="contact">
+                        <option value="cellular">Cellular</option>
+                        <option value="telephone">Telephone</option>
+                        <option value="unknown">Unknown</option>
+                    </select>
+                </div>
+                <div class="form">
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Last contact month
+                        of year</label>
+                    <select class="form-control input-column" name="month" id="month">
+                        <option value="jan">January</option>
+                        <option value="feb">February</option>
+                        <option value="mar">March</option>
+                        <option value="apr">April</option>
+                        <option value="may">May</option>
+                        <option value="jun">June</option>
+                        <option value="jul">July</option>
+                        <option value="aug">August</option>
+                        <option value="sep">September</option>
+                        <option value="oct">October</option>
+                        <option value="nov">November</option>
+                        <option value="dec">December</option>
+                    </select>
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Last contact day of
+                        the month</label>
+                    <select class="form-control input-column" name="day_of_week" id="day_of_week">
+                        <option value="mon">Monday</option>
+                        <option value="tue">Tuesday</option>
+                        <option value="wed">Wednesday</option>
+                        <option value="thu">Thursday</option>
+                        <option value="fri">Friday</option>
+                    </select>
+                </div>
+                <div class="form">
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">last contact
+                        duration</label>
+                    <input type="text" name="duration" class="form-control input-column input-custom"
+                        id="formGroupExampleInput" placeholder="Digite el valor del campo">
+
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">number of
+                        contacts</label>
+                    <input type="text" name="campaign" class="form-control input-column input-custom"
+                        id="formGroupExampleInput" placeholder="Digite el valor del campo">
+                </div>
+                <div class="form">
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Days passed since
+                        last contact</label>
+                    <input type="text" name="pdays" class="form-control input-column input-custom"
+                        id="formGroupExampleInput" placeholder="Digite el valor del campo">
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Days passed before
+                        the campaign</label>
+                    <input type="text" name="previous" class="form-control input-column input-custom"
+                        id="formGroupExampleInput" placeholder="Digite el valor del campo">
+                </div>
+                <div class="form">
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Outcome of the
+                        previous campaign</label>
+                    <select class="form-control input-column" name="poutcome" id="poutcome">
+                        <option value="other">Other</option>
+                        <option value="failure">Failure</option>
+                        <option value="success">Success</option>
+                        <option value="unknown">Unknown</option>
+                    </select>
+
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Employment variation
+                        rate</label>
+                    <input type="text" name="emp.var.rate" class="form-control input-column input-custom"
+                        id="formGroupExampleInput" placeholder="Digite el valor del campo">
+                </div>
+                <div class="form">
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Consumer price index</label>
+                    <input type="text" name="cons.price.idx" class="form-control input-column input-custom"
+                        id="formGroupExampleInput" placeholder="Digite el valor del campo">
+
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Consumer confidence index</label>
+                    <input type="text" name="cons.conf.idx" class="form-control input-column input-custom"
+                        id="formGroupExampleInput" placeholder="Digite el valor del campo">
+                </div>
+                <div class="form">
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Euribor 3 month rate</label>
+                    <input type="text" name="euribor3m" class="form-control input-column input-custom"
+                        id="formGroupExampleInput" placeholder="Digite el valor del campo">
+
+                    <label for="formGroupExampleInput" class="form-label label-column label-custom">Number of employees </label>
+                    <input type="text" name="nr.employed" class="form-control input-column input-custom"
+                        id="formGroupExampleInput" placeholder="Digite el valor del campo">
+                </div>
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-success" value="Evaluate"/>
+                </div>
+            </form>
+            <div id="mensaje-alerta" class="alert alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Is the client suitable? : </strong> <span id="mensaje-texto"></span>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $('form').on('submit', function (event) {
+                        event.preventDefault();
+                        $.ajax({
+                            type: 'POST',
+                            url: '/index',
+                            data: $(this).serialize(),
+                            success: function (response) {
+                                // Obtener el resultado de la respuesta
+                                var resultado = response.mensaje;
+
+                                // Actualizar el texto del mensaje
+                                $('#mensaje-texto').text(resultado);
+
+                                // Agregar clase CSS según el resultado
+                                if (resultado === 'No') {
+                                    $('#mensaje-alerta').addClass('alert-red').show();
+                                } else if (resultado === 'Yes') {
+                                    $('#mensaje-alerta').addClass('alert-green').show();
+                                } else {
+                                    $('#mensaje-alerta').hide();
+                                }
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        });
+                    });
+
+                    // Cerrar la alerta al hacer clic en el botón de cerrar
+                    $('.alert .close').on('click', function () {
+                        $(this).parent().hide();
+                    });
+                });
+            </script>
+        </section>
+    </div>
+
+
+</div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        $('.card section').hide();
+        $('.card section:first').show();
+        $('div.btns a').click(function () {
+            $('.card section').hide();
+            var activeTab = $(this).attr('href');
+            console.log(activeTab);
+            $(activeTab).show();
+        });
+    });
+</script>
+{% endblock %}
